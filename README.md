@@ -21,8 +21,6 @@
 
 
 ## <a name="obsv"/>Observation Results
-### <a name="serv"/>j. Information Disclosure
-
 ### <a name="serv"/>e. Content Security Policy (CSP)
 #### Identify:
 - CSP Header Not Set
@@ -53,6 +51,29 @@
 #### Evaluate:
 #### Prevent:
 
+### <a name="serv"/>h. Cookie Poisoning
+#### Identify:
+There is no alert found by OWASP ZAP for this vulnerability
+
+#### Evaluate:
+Not available on this website. Cookie poisoning occurs when attackers manipulate cookies to inject malicious data or modify existing data, potentially compromising the security and integrity of a web application. Attackers may exploit weaknesses in the application's handling of cookies, such as insufficient validation or sanitization of cookie values.
+
+#### Prevent:
+- Ensure that cookies are set with secure attributes such as ```HttpOnly```, ```Secure```, and ```SameSite``` to mitigate the risk of cookie poisoning attacks.
+- Implement strict validation and sanitization mechanisms to validate user-supplied data before storing it in cookies.
+  
+### <a name="serv"/>i. Potential XSS
+#### Identify:
+- X-Content-Type-Options Header Missing
+  - CWE ID: 693
+#### Evaluate: 
+The absence of the X-Content-Type-Options header exposes the application to risks associated with MIME-sniffing attacks. Without this header, some older versions of Internet Explorer and Chrome can perform MIME-sniffing on the response body. It potentially causes the response body to be interpreted and displayed as a content type other than the declared content type. Attackers could exploit this behaviour to execute malicious code or bypass security controls, potentially leading to XSS (Cross-Site Scripting) or other attacks.
+
+#### Prevent:
+- Configure web servers or application frameworks to include the X-Content-Type-Options header in HTTP responses. Set the value of this header to "nosniff" to instruct web browsers not to perform MIME-sniffing and instead adhere strictly to the declared content type. <br>
+```X-Content-Type-Options: nosniff```
+- When serving resources, make sure you send the content-type header to appropriately match the type of the resource being served. For example, if you are serving an HTML page, you should send the HTTP header:<br>
+```Content-Type: text/html```
 ### <a name="serv"/>j. Information Disclosure
 #### Identify:
 1. Timestamp Disclosure - Unix <br>
@@ -69,7 +90,7 @@ The vulnerability of timestamp disclosure in Unix occurs when an application or 
 #### Related CVE:
 - CVE-1999-0524: The remote host responds to an ICMP timestamp request, which allows an attacker to determine the time and date on your host. This information could potentially help attackers defeat time-based authentication schemes.
 
-#### Prevent
+#### Prevent:
 - Modify the Unix server configuration to prevent the disclosure of timestamps by the application or web server. This can typically be achieved by adjusting the server’s logging settings or by disabling the specific feature that is causing the disclosure.
 - Keep the Unix server up to date with the latest security patches and updates. This helps to address any known vulnerabilities, including those related to timestamp disclosure.
 - Ensure that appropriate access controls are in place to restrict access to sensitive information, including timestamps. This can involve configuring file permissions, user privileges, and network security measures.
@@ -81,13 +102,13 @@ The vulnerability of timestamp disclosure in Unix occurs when an application or 
     - The vulnerability is located at https://italeemc.iium.edu.my/login/index.php?authCAS=CAS&ticket=ST-1431048-TQy56uUdIzxJp51ANyZ66-mG9h8-cas2
     - Evidence: ```ticket```
 
-#### Evaluate 
+#### Evaluate:
 The occurrence of "Information Disclosure - Sensitive Information in URL" implies that the HTTP request might contain confidential data leaked through the URL. This could result in unauthorized exposure, violating PCI (Payment Card Industry) standards and many organizational compliance regulations. Consequently, error messages may surface during PCI compliance assessments.
 
-##### Related CVE
+##### Related CVE:
 - CVE-2020-7932: In versions of OMERO.web prior to 5.6.3, there is an optional feature that allows certain sensitive data elements, like session keys, to be included as URL query parameters. If an attacker manages to deceive a user into clicking on a malicious link within OMERO.web, the data contained in these query parameters might be revealed in the Referer header observed by the targeted user. Additionally, information present in the URL path, such as object IDs, could also be disclosed.
 
-#### Prevent
+#### Prevent:
 - Compartmentalize the system to have “safe” areas where trust boundaries can be drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area.
 - Do not pass sensitive information in URIs.
 
@@ -97,12 +118,10 @@ The occurrence of "Information Disclosure - Sensitive Information in URL" implie
     - Confidence level: Low
     - The vulnerability is located at https://italeemc.iium.edu.my/lib/javascript.php/1709768810/lib/javascript-static.js
     - Evidence: ```admin```
-#### Evaluate 
+#### Evaluate:
 
 Exposed comments or sections of source code that have been commented out could assist attackers in comprehending the underlying logic of your application. This information might enable them to identify operational endpoints among other things. By examining these fragments and actual code comments, attackers could uncover flaws in security protocols and discover unused yet accessible endpoints that could potentially expose sensitive data. Additionally, they may gain insights into internal company details, such as developers' personal names or the structure of the internal network.
 
-#### Prevent
+#### Prevent:
 - Eliminate any exposed code comments that could aid attackers and address the underlying issues they indicate.
   
-#### Evaluate:
-
