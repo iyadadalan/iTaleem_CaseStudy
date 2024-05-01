@@ -26,7 +26,7 @@
 ### <a name="serv"/>e. Content Security Policy (CSP)
 #### Identify:
 - CSP Header Not Set
-  - CWE ID: 693
+  - CWE ID: 693 - Protection Mechanism Failure
   - Risk Level: Medium
   - Confidence Level: High
   - The vulnerability is located at <a>https://italeemc.iium.edu.my/</a>
@@ -36,7 +36,7 @@
 ### <a name="serv"/>f. JS Library
 #### Identify:
 - Vulnerable JS Library 
-  - CWE ID: 829
+  - CWE ID: 829 - Inclusion of Functionality from Untrusted Control Sphere
   - Risk Level: Medium
   - Confidence Level: Medium
   - The vulnerability is located at https://italeemc.iium.edu.my/lib/requirejs.php/1709768810/core/first.js
@@ -46,7 +46,7 @@
 ### <a name="serv"/>g. HTTPS Implementation
 #### Identify:
 - Strict-Transport-Security Header Not Set
-  - CWE ID: 319
+  - CWE ID: 319 - Cleartext Transmission of Sensitive Information
   - Risk Level: Medium
   - Confidence Level: High
   - The vulnerability is located at https://italeemc.iium.edu.my/course/view.php?id=14106
