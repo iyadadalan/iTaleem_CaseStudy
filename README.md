@@ -18,6 +18,8 @@
     - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
     - Risk level: Low
     - Confidence level: Low
+    - The vulnerability is located at https://italeemc.iium.edu.my/
+      
 - Information Disclosure - Sensitive Information in URL
     - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
     - Risk level: Informational 
