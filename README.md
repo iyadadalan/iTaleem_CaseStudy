@@ -31,9 +31,17 @@
   - Evidence:<br>
     ![image](images/CSP.png)
 #### Evaluate:
+Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.
 
+In this case, the meta tag in the code for this page does not include a Content Security Policy in the ```meta``` tag. Adding a CSP can significantly enhance the site’s security by restricting resource loading to trusted sources and reducing the risk of XSS attacks. 
+
+#### Related:
+- OWASP_2021_A05: Security Misconfiguration - the risk and prevalence of security weaknesses caused by incorrect security settings in applications and servers.
+- OWASP_2017_A06: Security Misconfiguration - the dangers of inadequate security settings across application stacks or servers that could expose them to attack.
 
 #### Prevent:
+Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header. For example:<br>
+```<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*.iium.edu.my; script-src 'self' https://italeemc.iium.edu.my; style-src 'self' https://italeemc.iium.edu.my;">```
 
 ### <a name="serv"/>f. JS Library
 #### Identify:
@@ -47,7 +55,7 @@
 
 A JavaScript library threat in web security refers to the vulnerabilities that can arise from using third-party JavaScript libraries in web applications.  These libraries, while essential for developing interactive and efficient websites, can introduce various security risks if not properly managed or updated. Common threats such as Cross-Site Scripting (XSS) and SQL injections will take advantage of this exposure.
 
-In this case, the version 1.12.4 of the library called "bootstrap-select" has a security issue. It's vulnerable to Cross-Site Scripting (XSS) because it doesn't properly handle special characters in the titles of dropdown options. This may allow attackers to execute unwanted JavaScript code in a victim's browser.
+In this case, the version ```1.12.4``` of the ```bootstrap-select``` library has a security issue. It's vulnerable to Cross-Site Scripting (XSS) because it doesn't properly handle special characters in the titles of dropdown options. This may allow attackers to execute unwanted JavaScript code in a victim's browser.
 
 Related:
 - CVE-2019-20921: bootstrap-select before 1.13.6 allows Cross-Site Scripting (XSS). It does not escape title values in OPTION elements. This may allow attackers to execute arbitrary JavaScript in a victim's browser.
