@@ -21,6 +21,66 @@
 
 
 ## <a name="obsv"/>Observation Results
+### <a name="hash"/>b. Hash Disclosure
+#### Identify:
+- No alert was gained from the automated or manual scan. This vulnerability has a low-risk level, and the weakness ID for CWE is 200, which stands for Exposure of Sensitive Information to an Unauthorized Actor <a>https://www.zaproxy.org/docs/alerts/10097/</a>.
+
+#### Evaluate:
+- N.A. for this website. This web application has prevented and concealed their hashed form of information.
+
+#### Prevent:
+- N.A. for this website. Otherwise, ensure that the web server or database does not leak hashes used to protect credentials or other resources. There is typically no requirement that password hashes be accessible to the web browser.
+
+### <a name="serv"/>c. CSRF
+#### Identify:
+- Absence of Anti-CSRF Tokens
+  - CWE ID: 352 - Cross-Site Request Forgery (CSRF)
+  - WASC ID: 9
+  - Risk Level: Medium
+  - Confidence: Low
+  - The vulnerability is located at <a>https://italeemc.iium.edu.my/</a>
+  - Evidence:<br>
+    ![CSRF](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/122088412/2f2225e6-6771-4eb5-a137-37bdf806d82e)
+    No known Anti-CSRF token: ```[anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: "anchor" "logintoken" "password" "rememberusername" "username" ]```
+
+#### Evaluate:
+No Anti-CSRF tokens were found in a HTML submission form.
+
+A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.
+
+CSRF attacks are effective in a number of situations, including:
+    * The victim has an active session on the target site.
+    * The victim is authenticated via HTTP auth on the target site.
+    * The victim is on the same local network as the target site.
+
+CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.
+![Observed Examples](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/122088412/000acb89-3b49-4920-8a11-1475983fe2df)
+
+Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
+
+#### Related:
+- OWASP_2021_A01/OWASP_2017_A05: Broken Access Control - Weaknesses in access control that allow unauthorized access to data or functionality.
+- WSTG-v42-SESS-05: Testing for Cross Site Request Forgery - This is a comprehensive resource by the OWASP that provides methodologies and guidance for testing the security of web applications.
+
+#### Prevent:
+- Phase: Architecture and Design
+    - Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. For example, use anti-CSRF packages such as the OWASP CSRFGuard.
+    - Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330) (Note that this can be bypassed using XSS).
+    - Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation (Note that this can be bypassed using XSS).
+
+- Use the ESAPI Session Management control. This control includes a component for CSRF.
+
+- Do not use the GET method for any request that triggers a state change.
+
+- Phase: Implementation
+    - Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.
+    - Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.
+Reference: <a>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</a>
+
+### <a name="serv"/>d. Secured Cookies
+#### Identify:
+- Cookie Without Secure Flag
+
 ### <a name="serv"/>e. Content Security Policy (CSP)
 #### Identify:
 - CSP Header Not Set
