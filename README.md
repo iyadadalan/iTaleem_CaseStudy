@@ -13,7 +13,7 @@
       - JS Library
       - HTTPS implementation (TLS/SSL)
 
-4. Muhammad Arif Faisal bin Zahari (2117277)
+3. Muhammad Arif Faisal bin Zahari (2117277)
     - Identify, evaluate and prevent of:
       - Cookie Poisoning
       - Potential XSS
@@ -28,7 +28,11 @@
   - Risk Level: Medium
   - Confidence Level: High
   - The vulnerability is located at <a>https://italeemc.iium.edu.my/</a>
+  - Evidence:<br>
+    ![image](images/CSP.png)
 #### Evaluate:
+
+
 #### Prevent:
 
 ### <a name="serv"/>f. JS Library
@@ -51,7 +55,8 @@ Related:
 - OWASP_2021_A06: Vulnerable and Outdated Components - using software components that have known vulnerabilities due to being outdated or unmaintained.
 
 #### Prevent:
-- Please upgrade to the latest version of bootstrap-select.
+- Upgrade Components: Upgrading to the latest version of bootstrap-select will usually fix the vulnerabilites of past versions
+- Implement Content Security Policies (CSP): CSPs can prevent unauthorisde scripts from running on your website.
 
 #### References:
 - https://nvd.nist.gov/vuln/detail/CVE-2019-20921
@@ -66,6 +71,7 @@ Related:
   - Confidence Level: High
   - The vulnerability is located at https://italeemc.iium.edu.my/course/view.php?id=14106
 #### Evaluate:
+HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.
 #### Prevent:
 
 ### <a name="serv"/>h. Cookie Poisoning
