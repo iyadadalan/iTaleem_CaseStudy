@@ -35,13 +35,30 @@
 
 ### <a name="serv"/>f. JS Library
 #### Identify:
-- Vulnerable JS Library 
+- Vulnerable JS Library
   - CWE ID: 829 - Inclusion of Functionality from Untrusted Control Sphere
   - Risk Level: Medium
   - Confidence Level: Medium
   - The vulnerability is located at https://italeemc.iium.edu.my/lib/requirejs.php/1709768810/core/first.js
+  - Evidence: ```t.data("selectpicker",o=new p(this,r))}"string"==typeof s&&(i=o[s]instanceof Function?o[s].apply(o,n):o.options[s])}});return void 0!==i?i:o}p.VERSION="1.12.4"```
 #### Evaluate:
+
+A JavaScript library threat in web security refers to the vulnerabilities that can arise from using third-party JavaScript libraries in web applications.  These libraries, while essential for developing interactive and efficient websites, can introduce various security risks if not properly managed or updated. Common threats such as Cross-Site Scripting (XSS) and SQL injections will take advantage of this exposure.
+
+In this case, the version 1.12.4 of the library called "bootstrap-select" has a security issue. It's vulnerable to Cross-Site Scripting (XSS) because it doesn't properly handle special characters in the titles of dropdown options. This may allow attackers to execute unwanted JavaScript code in a victim's browser.
+
+Related:
+- CVE-2019-20921: bootstrap-select before 1.13.6 allows Cross-Site Scripting (XSS). It does not escape title values in OPTION elements. This may allow attackers to execute arbitrary JavaScript in a victim's browser.
+- OWASP_2017_A09: Using Components with Known Vulnerabilities - the dangers of using software components that are out-of-date or have publicly disclosed vulnerabilities.
+- OWASP_2021_A06: Vulnerable and Outdated Components - using software components that have known vulnerabilities due to being outdated or unmaintained.
+
 #### Prevent:
+- Please upgrade to the latest version of bootstrap-select.
+
+#### References:
+- https://nvd.nist.gov/vuln/detail/CVE-2019-20921
+- https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities
+- https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
 
 ### <a name="serv"/>g. HTTPS Implementation
 #### Identify:
