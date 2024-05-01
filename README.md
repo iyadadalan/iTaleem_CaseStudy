@@ -75,6 +75,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
 - Phase: Implementation
     - Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.
     - Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.
+
 Reference: <a>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</a>
 
 ### <a name="serv"/>d. Secured Cookies
