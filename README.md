@@ -37,7 +37,7 @@
   - CWE ID: 352 - Cross-Site Request Forgery (CSRF)
   - WASC ID: 9
   - Risk Level: Medium
-  - Confidence: Low
+  - Confidence Level: Low
   - The vulnerability is located at <a>https://italeemc.iium.edu.my/</a>
   - Evidence:<br>
     ![CSRF](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/122088412/2f2225e6-6771-4eb5-a137-37bdf806d82e)
@@ -59,8 +59,9 @@ CSRF has primarily been used to perform an action against a target site using th
 Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
 
 #### Related:
-- OWASP_2021_A01/OWASP_2017_A05: Broken Access Control - Weaknesses in access control that allow unauthorized access to data or functionality.
+- OWASP_2021_A01: Broken Access Control - Weaknesses in access control that allow unauthorized access to data or functionality.
 - WSTG-v42-SESS-05: Testing for Cross Site Request Forgery - This is a comprehensive resource by the OWASP that provides methodologies and guidance for testing the security of web applications.
+- OWASP_2017_A06: Security Misconfiguration - The dangers of inadequate security settings across application stacks or servers that could expose them to attack.
 
 #### Prevent:
 - Phase: Architecture and Design
@@ -70,7 +71,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
 
 - Use the ESAPI Session Management control. This control includes a component for CSRF.
 
-- Do not use the GET method for any request that triggers a state change.
+- Do not use the GET method for any request that triggers a state change. For example, if you want to delete a user account, instead of using a simple GET request with a delete confirmation link ``` delete_account.php?confirm=yes```, use a POST request with a hidden form field containing a CSRF token. This enforces a more secure interaction where the user submits data through a form, making it harder for attackers to exploit CSRF vulnerabilities.
 
 - Phase: Implementation
     - Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.
@@ -80,7 +81,31 @@ Reference: <a>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_
 
 ### <a name="serv"/>d. Secured Cookies
 #### Identify:
-- Cookie Without Secure Flag
+- Cookie No HttpOnly Flag
+    - CWE ID: 1004 - Sensitive Cookie Without 'HttpOnly' Flag
+    - WASC ID: 13
+    - Risk Level: Low
+    - Confidence Level: Medium
+    - The vulnerability is located at <a>https://italeemc.iium.edu.my/</a>
+    - Evidence:<br>
+          ![moodleSession](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/122088412/11fc25d8-21fb-41e7-861e-33a9ecac50d5)
+          
+#### Evaluate:
+The product uses a cookie to store sensitive information, but the cookie is not marked with the HttpOnly flag.
+
+The HttpOnly flag directs compatible browsers to prevent client-side script from accessing cookies. Including the HttpOnly flag in the Set-Cookie HTTP response header helps mitigate the risk associated with Cross-Site Scripting (XSS) where an attacker's script code might attempt to read the contents of a cookie and exfiltrate information obtained. When set, browsers that support the flag will not reveal the contents of the cookie to a third party via client-side script executed via XSS.
+
+A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.
+
+Reference: <a>https://cwe.mitre.org/data/definitions/1004.html</a>
+
+#### Related:
+- OWASP_2021_A01: Broken Access Control - Weaknesses in access control that allow unauthorized access to data or functionality.
+- WSTG-v42-SESS-05: Testing for Cross Site Request Forgery - This is a comprehensive resource by the OWASP that provides methodologies and guidance for testing the security of web applications.
+- OWASP_2017_A06: Security Misconfiguration - The dangers of inadequate security settings across application stacks or servers that could expose them to attack.
+
+#### Prevent:
+Ensure that the HttpOnly flag is set for all cookies. While this mitigation is effective for protecting cookies from a browser's own scripting engine, third-party components or plugins may have their own engines that allow access to cookies. Attackers might also be able to use XMLHTTPResponse to read the headers directly and obtain the cookie.
 
 ### <a name="serv"/>e. Content Security Policy (CSP)
 #### Identify:
