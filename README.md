@@ -7,13 +7,18 @@
 
 ## Assigned Tasks
 1. Muhammad bin Abas
-2. Wan Hamzah Iyad bin Wan Adlan
+    - Identify, evaluate and prevent of:
+      - Hash Disclosure.
+      - CSRF. 
+      - Secured Cookies.
+
+3. Wan Hamzah Iyad bin Wan Adlan
     - Identify, evaluate and prevent of:
       - CSP
       - JS Library
       - HTTPS implementation (TLS/SSL)
 
-3. Muhammad Arif Faisal bin Zahari (2117277)
+4. Muhammad Arif Faisal bin Zahari (2117277)
     - Identify, evaluate and prevent of:
       - Cookie Poisoning
       - Potential XSS
@@ -21,6 +26,16 @@
 
 
 ## <a name="obsv"/>Observation Results
+
+### <a name="serv"/>a. Server OS and Server Side-Scripting
+#### Identify:
+
+#### Evaluate:
+
+#### Prevent:
+
+
+
 ### <a name="hash"/>b. Hash Disclosure
 #### Identify:
 - No alert was gained from the automated or manual scan. This vulnerability has a low-risk level, and the weakness ID for CWE is 200, which stands for Exposure of Sensitive Information to an Unauthorized Actor <a>https://www.zaproxy.org/docs/alerts/10097/</a>.
