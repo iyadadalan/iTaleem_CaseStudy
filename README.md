@@ -2,7 +2,7 @@
 
 ## Group Members
 1. Wan Hamzah Iyad bin Wan Adlan (2115449) - Leader
-2. Muhammad bin Abas
+2. Muhammad bin Abas (2113201)
 3. Muhammad Arif Faisal bin Zahari (2117277)
 
 ## Assigned Tasks
