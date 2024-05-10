@@ -39,11 +39,17 @@
     9. [Potential XSS](#xss)
     10. [Information Disclosure](#inf)
 
+## <a name="desc"/> Case Study Description
+We have been assigned the e-learning platform for IIUM, iTaleem located at https://italeemc.iium.edu.my/. The purpose of this case study to identify, evaluate and prevent the security vulnerabilities that are found within the web application. We will be using the OWASP ZAP scanning tool to aid us in the investigation using both the automated and manual scanning feature.  
+
+We will mainly be focusing on automated scan due to the large amount of webpages the site has. <br>
+
 
 ## <a name="obsv"/>Observation Results
 
 ### <a name="serv"/>a. Server OS and Server Side-Scripting
 #### Identify:
+     - 
 
 #### Evaluate:
 
@@ -189,14 +195,14 @@ Related:
 
 ### <a name="https"/>g. HTTPS Implementation
 #### Identify:
-- Strict-Transport-Security Header Not Set
-  - CWE ID: 319 - Cleartext Transmission of Sensitive Information
-  - Risk Level: Medium
-  - Confidence Level: High
-  - The vulnerability is located at https://italeemc.iium.edu.my/course/view.php?id=14106
+- No vulnerabilities has been found with the HTTPS implementation for this website after running the automated and manual scanning tool. 
+
 #### Evaluate:
-HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.
+The evaluation of the HTTPS implementation on the website reveals a robust security posture. Both automated and manual scans detected no vulnerabilities, indicating that developers have effectively secured communication channels with SSL/TLS encryption. Moreover, manual inspection confirms compliance with HTTPS standards, ensuring encrypted and authenticated data transmission.
+
+Other than encryption, HTTPS implementation should also include additional security headers like CSP, X-Content-Type-Options, and X-Frame-Options, alongside HTTP Strict Transport Security (HSTS) headers, to further enhance security. 
 #### Prevent:
+N/A for this website. However, if an alert were to be found, ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.
 
 ### <a name="coo"/>h. Cookie Poisoning
 #### Identify:
