@@ -20,9 +20,24 @@
 
 4. Muhammad Arif Faisal bin Zahari (2117277)
     - Identify, evaluate and prevent of:
+      - Server OS and Server OS and Server-Side Scripting
       - Cookie Poisoning
       - Potential XSS
       - Information Disclosure
+     
+## Table of Contents
+1. [Description](#desc)
+2. [Observation Results](#obsv)
+    1. [Server OS and Server-Side Scripting used (Windows or Linux, PHP or ASP.net or JavaScript, etc)](#serv)
+    2. [Hash Disclosure](#hash)
+    3. [CSRF](#csrf)
+    4. [Secured Cookies](#sec)
+    5. [CSP](#csp)
+    6. [JS Library](#jsl)
+    7. [HTTPS implementation (TLS/SSL)](#https)
+    8. [Cookie Poisoning](#coo)
+    9. [Potential XSS](#xss)
+    10. [Information Disclosure](#inf)
 
 
 ## <a name="obsv"/>Observation Results
@@ -46,7 +61,7 @@
 #### Prevent:
 - N.A. for this website. Otherwise, ensure that the web server or database does not leak hashes used to protect credentials or other resources. There is typically no requirement that password hashes be accessible to the web browser.
 
-### <a name="serv"/>c. CSRF
+### <a name="csrf"/>c. CSRF
 #### Identify:
 - Absence of Anti-CSRF Tokens
   - CWE ID: 352 - Cross-Site Request Forgery (CSRF)
@@ -94,7 +109,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
 
 Reference: <a>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</a>
 
-### <a name="serv"/>d. Secured Cookies
+### <a name="sec"/>d. Secured Cookies
 #### Identify:
 - Cookie No HttpOnly Flag
     - CWE ID: 1004 - Sensitive Cookie Without 'HttpOnly' Flag
@@ -122,7 +137,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/1004.html</a>
 #### Prevent:
 Ensure that the HttpOnly flag is set for all cookies. While this mitigation is effective for protecting cookies from a browser's own scripting engine, third-party components or plugins may have their own engines that allow access to cookies. Attackers might also be able to use XMLHTTPResponse to read the headers directly and obtain the cookie.
 
-### <a name="serv"/>e. Content Security Policy (CSP)
+### <a name="csp"/>e. Content Security Policy (CSP)
 #### Identify:
 - CSP Header Not Set
   - CWE ID: 693 - Protection Mechanism Failure
@@ -144,7 +159,7 @@ In this case, the meta tag in the code for this page does not include a Content 
 Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header. For example:<br>
 ```<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*.iium.edu.my; script-src 'self' https://italeemc.iium.edu.my; style-src 'self' https://italeemc.iium.edu.my;">```
 
-### <a name="serv"/>f. JS Library
+### <a name="jsl"/>f. JS Library
 #### Identify:
 - Vulnerable JS Library
   - CWE ID: 829 - Inclusion of Functionality from Untrusted Control Sphere
@@ -172,7 +187,7 @@ Related:
 - https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities
 - https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
 
-### <a name="serv"/>g. HTTPS Implementation
+### <a name="https"/>g. HTTPS Implementation
 #### Identify:
 - Strict-Transport-Security Header Not Set
   - CWE ID: 319 - Cleartext Transmission of Sensitive Information
@@ -183,7 +198,7 @@ Related:
 HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.
 #### Prevent:
 
-### <a name="serv"/>h. Cookie Poisoning
+### <a name="coo"/>h. Cookie Poisoning
 #### Identify:
 There is no alert found by OWASP ZAP for this vulnerability
 
@@ -194,7 +209,7 @@ Not available on this website. Cookie poisoning occurs when attackers manipulate
 - Ensure that cookies are set with secure attributes such as ```HttpOnly```, ```Secure```, and ```SameSite``` to mitigate the risk of cookie poisoning attacks.
 - Implement strict validation and sanitization mechanisms to validate user-supplied data before storing it in cookies.
   
-### <a name="serv"/>i. Potential XSS
+### <a name="xss"/>i. Potential XSS
 #### Identify:
 - X-Content-Type-Options Header Missing
   - CWE ID: 693
@@ -206,7 +221,7 @@ The absence of the X-Content-Type-Options header exposes the application to risk
 ```X-Content-Type-Options: nosniff```
 - When serving resources, make sure you send the content-type header to appropriately match the type of the resource being served. For example, if you are serving an HTML page, you should send the HTTP header:<br>
 ```Content-Type: text/html```
-### <a name="serv"/>j. Information Disclosure
+### <a name="inf"/>j. Information Disclosure
 #### Identify:
 1. Timestamp Disclosure - Unix <br>
     - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
