@@ -49,13 +49,22 @@ We will mainly be focusing on automated scan due to the large amount of webpages
 
 ### <a name="serv"/>a. Server OS and Server Side-Scripting
 #### Identify:
-     - 
+- Server Leaks Version Information via "Server" HTTP Response Header Field
+    - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
+    - WASC ID: 13
+    - Risk Level: Low
+    - Confidence Level: High
+    - The vulnerability is located at <a>https://cas.iium.edu.my:8448/cas/login?service=https%3A%2F%2Fitaleemc.iium.edu.my%2Flogin%2Findex.php%3FauthCAS%3DCAS&gateway=true/</a>
+    - Evidence: ```Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_nss/1.0.14 NSS/3.28.4 PHP/5.4.16```
+ ![image](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/59950029/c91af5e7-5a75-4be4-b052-d6a249085a23)
 
 #### Evaluate:
-
+When a server leaks version information via the "Server" HTTP response header field, it provides attackers with valuable insight into the software stack and version numbers of the server software being used. This information can be exploited by attackers to identify known vulnerabilities associated with specific versions of software, increasing the likelihood of successful attacks.
 #### Prevent:
-
-
+- Disable or Modify Server Header: Configure the web server to disable or modify the "Server" HTTP response header to prevent it from revealing version information. This can typically be done through server configuration settings or by using security modules or plugins.
+- Implement Web Application Firewalls (WAFs): Deploy a web application firewall (WAF) to inspect and filter HTTP headers, including the "Server" header. WAFs can be configured to remove or obfuscate sensitive information before it is sent to clients, helping to protect against information leakage.
+#### Related: 
+- CVE-2015-2080: The exception handling code in Eclipse Jetty before 9.2.9.v20150224 allows remote attackers to obtain sensitive information from process memory via illegal characters in an HTTP header, aka JetLeak.
 
 ### <a name="hash"/>b. Hash Disclosure
 #### Identify:
@@ -206,27 +215,55 @@ N/A for this website. However, if an alert were to be found, ensure that your we
 
 ### <a name="coo"/>h. Cookie Poisoning
 #### Identify:
-There is no alert found by OWASP ZAP for this vulnerability
+- Cookie with SameSite Attribute None
+  - CWE ID: 1275 - Sensitive Cookie with Improper SameSite Attribute
+  - Risk Level: Low
+  - Confidence Level: Medium
+  - The vulnerability is located at http://italeemc.iium.edu.my/
+  - Evidence: ```set-cookie: MoodleSession=9djgupuktfu2rbum7obbkkf939; path=/; secure; SameSite=None```
+![image](https://github.com/iyadadalan/iTaleem_CaseStudy/assets/59950029/e8e9a17d-f431-4a11-84ac-99a51ae8606a)
 
 #### Evaluate:
-Not available on this website. Cookie poisoning occurs when attackers manipulate cookies to inject malicious data or modify existing data, potentially compromising the security and integrity of a web application. Attackers may exploit weaknesses in the application's handling of cookies, such as insufficient validation or sanitization of cookie values.
+
+When the SameSite attribute is set to None, a website can create a cross-domain POST HTTP request to another website, and the browser automatically includes cookies in this request.
+This behavior can lead to Cross-Site Request Forgery (CSRF) attacks if there are no additional protections (such as Anti-CSRF tokens) in place.
 
 #### Prevent:
-- Ensure that cookies are set with secure attributes such as ```HttpOnly```, ```Secure```, and ```SameSite``` to mitigate the risk of cookie poisoning attacks.
-- Implement strict validation and sanitization mechanisms to validate user-supplied data before storing it in cookies.
+Ensure all cookies have the SameSite attribute set, specifying either "Strict" to restrict cookies to same-site requests only, or "Lax" to permit cookies to be sent with cross-site requests initiated by safe HTTP methods like GET.
+
+#### Related: 
+- CVE-2022-24045: A vulnerability exists in Desigo DXR2, Desigo PXC3, Desigo PXC4, and Desigo PXC5 versions prior to specified releases. After login, session cookies are set without security attributes (such as “Secure”, “HttpOnly”, or “SameSite”) via client-side JavaScript. Accessing the application over unencrypted HTTP exposes session cookies, risking interception of sensitive data by network sniffing.
+
+#### References: 
+- https://www.cve.org/CVERecord?id=CVE-2022-24045
+- https://cwe.mitre.org/data/definitions/1275.html
   
 ### <a name="xss"/>i. Potential XSS
 #### Identify:
-- X-Content-Type-Options Header Missing
-  - CWE ID: 693
+- User Controllable HTML Element Attribute
+  - CWE ID: 20 - Improper Input Validation
+  - Risk Level: Informational
+  - Confidence Level: Low
+  - The vulnerability is located at https://italeemc.iium.edu.my/?lang=en
+
 #### Evaluate: 
-The absence of the X-Content-Type-Options header exposes the application to risks associated with MIME-sniffing attacks. Without this header, some older versions of Internet Explorer and Chrome can perform MIME-sniffing on the response body. It potentially causes the response body to be interpreted and displayed as a content type other than the declared content type. Attackers could exploit this behaviour to execute malicious code or bypass security controls, potentially leading to XSS (Cross-Site Scripting) or other attacks.
+
+The "lang" attribute in HTML is typically used to specify the language of the content within an element. It's commonly used within the <html> tag to define the language of the entire document, but it can also be used within specific elements to indicate the language of a particular section of content.
+
+However, if the value of the "lang" attribute is directly controlled by a user or comes from an untrusted source without proper validation or encoding, it can lead to Cross-Site Scripting (XSS) vulnerabilities. An attacker could input a value containing malicious JavaScript code into a form field or URL parameter that is then reflected in the "lang" attribute of an HTML element. 
+
+For example:
+```<a lang="javascript:alert('XSS')">Click me</a>```
 
 #### Prevent:
-- Configure web servers or application frameworks to include the X-Content-Type-Options header in HTTP responses. Set the value of this header to "nosniff" to instruct web browsers not to perform MIME-sniffing and instead adhere strictly to the declared content type. <br>
-```X-Content-Type-Options: nosniff```
-- When serving resources, make sure you send the content-type header to appropriately match the type of the resource being served. For example, if you are serving an HTML page, you should send the HTTP header:<br>
-```Content-Type: text/html```
+
+- Validate Input: Ensure that user input is properly validated to prevent the injection of malicious code. Reject any input that does not conform to expected values.
+- Encode Output: Encode user-controlled data before outputting it into HTML attributes. This ensures that any special characters are properly sanitised and prevents them from being interpreted as part of a script.
+#### Related: 
+- CVE-2022-25784: Cross-site Scripting (XSS) vulnerability in Web GUI of SiteManager allows logged-in user to inject scripting. This issue affects: Secomea SiteManager all versions prior to 9.7.
+#### References:
+- https://cwe.mitre.org/data/definitions/20.html
+  
 ### <a name="inf"/>j. Information Disclosure
 #### Identify:
 1. Timestamp Disclosure - Unix <br>
@@ -248,33 +285,5 @@ The vulnerability of timestamp disclosure in Unix occurs when an application or 
 - Keep the Unix server up to date with the latest security patches and updates. This helps to address any known vulnerabilities, including those related to timestamp disclosure.
 - Ensure that appropriate access controls are in place to restrict access to sensitive information, including timestamps. This can involve configuring file permissions, user privileges, and network security measures.
   
-2. Information Disclosure - Sensitive Information in URL
-    - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
-    - Risk level: Informational 
-    - Confidence level: Medium
-    - The vulnerability is located at https://italeemc.iium.edu.my/login/index.php?authCAS=CAS&ticket=ST-1431048-TQy56uUdIzxJp51ANyZ66-mG9h8-cas2
-    - Evidence: ```ticket```
 
-#### Evaluate:
-The occurrence of "Information Disclosure - Sensitive Information in URL" implies that the HTTP request might contain confidential data leaked through the URL. This could result in unauthorized exposure, violating PCI (Payment Card Industry) standards and many organizational compliance regulations. Consequently, error messages may surface during PCI compliance assessments.
-
-##### Related CVE:
-- CVE-2020-7932: In versions of OMERO.web prior to 5.6.3, there is an optional feature that allows certain sensitive data elements, like session keys, to be included as URL query parameters. If an attacker manages to deceive a user into clicking on a malicious link within OMERO.web, the data contained in these query parameters might be revealed in the Referer header observed by the targeted user. Additionally, information present in the URL path, such as object IDs, could also be disclosed.
-
-#### Prevent:
-- Compartmentalize the system to have “safe” areas where trust boundaries can be drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area.
-- Do not pass sensitive information in URIs.
-
-3. Information Disclosure - Suspicious Comments
-    - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
-    - Risk level: Informational 
-    - Confidence level: Low
-    - The vulnerability is located at https://italeemc.iium.edu.my/lib/javascript.php/1709768810/lib/javascript-static.js
-    - Evidence: ```admin```
-#### Evaluate:
-
-Exposed comments or sections of source code that have been commented out could assist attackers in comprehending the underlying logic of your application. This information might enable them to identify operational endpoints among other things. By examining these fragments and actual code comments, attackers could uncover flaws in security protocols and discover unused yet accessible endpoints that could potentially expose sensitive data. Additionally, they may gain insights into internal company details, such as developers' personal names or the structure of the internal network.
-
-#### Prevent:
-- Eliminate any exposed code comments that could aid attackers and address the underlying issues they indicate.
   
