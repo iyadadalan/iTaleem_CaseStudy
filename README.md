@@ -283,7 +283,7 @@ The vulnerability of timestamp disclosure in Unix occurs when an application or 
 #### Prevent:
 - Modify the Unix server configuration to prevent the disclosure of timestamps by the application or web server. This can typically be achieved by adjusting the server’s logging settings or by disabling the specific feature that is causing the disclosure.
 - Keep the Unix server up to date with the latest security patches and updates. This helps to address any known vulnerabilities, including those related to timestamp disclosure.
-- Ensure that appropriate access controls are in place to restrict access to sensitive information, including timestamps. This can involve configuring file permissions, user privileges, and network security measures.
+- Make sure that all code paths take the same amount of time. This means that we should avoid returning early to sensitive parts of the codebase.
   
 
   
