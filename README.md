@@ -20,7 +20,7 @@
 
 4. Muhammad Arif Faisal bin Zahari (2117277)
     - Identify, evaluate and prevent of:
-      - Server OS and Server OS and Server-Side Scripting
+      - Server OS and Server-Side Scripting
       - Cookie Poisoning
       - Potential XSS
       - Information Disclosure
