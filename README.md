@@ -47,7 +47,7 @@ We will mainly be focusing on automated scan due to the large amount of webpages
 
 ## <a name="obsv"/>Observation Results
 
-### <a name="serv"/>a. Server OS and Server Side-Scripting
+### <a name="serv"/>a. Server OS and Server Side-Scripting (Arif)
 #### Identify:
 - Server Leaks Version Information via "Server" HTTP Response Header Field
     - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
@@ -66,7 +66,7 @@ When a server leaks version information via the "Server" HTTP response header fi
 #### Related: 
 - CVE-2015-2080: The exception handling code in Eclipse Jetty before 9.2.9.v20150224 allows remote attackers to obtain sensitive information from process memory via illegal characters in an HTTP header, aka JetLeak.
 
-### <a name="hash"/>b. Hash Disclosure
+### <a name="hash"/>b. Hash Disclosure (Muhammad)
 #### Identify:
 - No alert was gained from the automated or manual scan. This vulnerability has a low-risk level, and the weakness ID for CWE is 200, which stands for Exposure of Sensitive Information to an Unauthorized Actor <a>https://www.zaproxy.org/docs/alerts/10097/</a>.
 
@@ -76,7 +76,7 @@ When a server leaks version information via the "Server" HTTP response header fi
 #### Prevent:
 - N.A. for this website. Otherwise, ensure that the web server or database does not leak hashes used to protect credentials or other resources. There is typically no requirement that password hashes be accessible to the web browser.
 
-### <a name="csrf"/>c. CSRF
+### <a name="csrf"/>c. CSRF (Muhammad)
 #### Identify:
 - Absence of Anti-CSRF Tokens
   - CWE ID: 352 - Cross-Site Request Forgery (CSRF)
@@ -124,7 +124,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/352.html</a>
 
 Reference: <a>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</a>
 
-### <a name="sec"/>d. Secured Cookies
+### <a name="sec"/>d. Secured Cookies (Muhammad)
 #### Identify:
 - Cookie No HttpOnly Flag
     - CWE ID: 1004 - Sensitive Cookie Without 'HttpOnly' Flag
@@ -152,7 +152,7 @@ Reference: <a>https://cwe.mitre.org/data/definitions/1004.html</a>
 #### Prevent:
 Ensure that the HttpOnly flag is set for all cookies. While this mitigation is effective for protecting cookies from a browser's own scripting engine, third-party components or plugins may have their own engines that allow access to cookies. Attackers might also be able to use XMLHTTPResponse to read the headers directly and obtain the cookie.
 
-### <a name="csp"/>e. Content Security Policy (CSP)
+### <a name="csp"/>e. Content Security Policy (CSP) (Iyad)
 #### Identify:
 - CSP Header Not Set
   - CWE ID: 693 - Protection Mechanism Failure
@@ -174,7 +174,7 @@ In this case, the meta tag in the code for this page does not include a Content 
 Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header. For example:<br>
 ```<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*.iium.edu.my; script-src 'self' https://italeemc.iium.edu.my; style-src 'self' https://italeemc.iium.edu.my;">```
 
-### <a name="jsl"/>f. JS Library
+### <a name="jsl"/>f. JS Library (Iyad)
 #### Identify:
 - Vulnerable JS Library
   - CWE ID: 829 - Inclusion of Functionality from Untrusted Control Sphere
@@ -201,8 +201,8 @@ Related:
 - https://nvd.nist.gov/vuln/detail/CVE-2019-20921
 - https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities
 - https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
-
-### <a name="https"/>g. HTTPS Implementation
+ 
+### <a name="https"/>g. HTTPS Implementation (Iyad)
 #### Identify:
 - No vulnerabilities has been found with the HTTPS implementation for this website after running the automated and manual scanning tool. 
 
@@ -213,7 +213,7 @@ Other than encryption, HTTPS implementation should also include additional secur
 #### Prevent:
 N/A for this website. However, if an alert were to be found, ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.
 
-### <a name="coo"/>h. Cookie Poisoning
+### <a name="coo"/>h. Cookie Poisoning (Arif)
 #### Identify:
 - Cookie with SameSite Attribute None
   - CWE ID: 1275 - Sensitive Cookie with Improper SameSite Attribute
@@ -238,7 +238,7 @@ Ensure all cookies have the SameSite attribute set, specifying either "Strict" t
 - https://www.cve.org/CVERecord?id=CVE-2022-24045
 - https://cwe.mitre.org/data/definitions/1275.html
   
-### <a name="xss"/>i. Potential XSS
+### <a name="xss"/>i. Potential XSS (Arif)
 #### Identify:
 - User Controllable HTML Element Attribute
   - CWE ID: 20 - Improper Input Validation
@@ -264,7 +264,7 @@ For example:
 #### References:
 - https://cwe.mitre.org/data/definitions/20.html
   
-### <a name="inf"/>j. Information Disclosure
+### <a name="inf"/>j. Information Disclosure (Arif)
 #### Identify:
 1. Timestamp Disclosure - Unix <br>
     - CWE ID: 200 - Exposure of Sensitive Information to an Unauthorized Actor
