@@ -24,6 +24,27 @@
       - Cookie Poisoning
       - Potential XSS
       - Information Disclosure
+
+## Overview
+| Vulnerability                     | Identified By                   | Risk Level       | Confidence Level | Details                                                                                     |
+|-----------------------------------|---------------------------------|------------------|------------------|---------------------------------------------------------------------------------------------|
+| Server OS and Server-Side Scripting | Muhammad Arif Faisal bin Zahari | ![Low](#00FF00)  | ![High](#FF0000) | Server leaks version info via "Server" HTTP header.                                          |
+| Hash Disclosure                    | Muhammad bin Abas               | ![Low](#00FF00)  | ![Low](#FFFF00)  | No hash disclosure detected.                                                                |
+| CSRF                               | Muhammad bin Abas               | ![Medium](#FFFF00)| ![Low](#FFFF00)  | Absence of Anti-CSRF tokens.                                                                |
+| Secured Cookies                    | Muhammad bin Abas               | ![Low](#00FF00)  | ![Medium](#FFFF00)| Cookie lacks HttpOnly flag.                                                                 |
+| CSP                                | Wan Hamzah Iyad bin Wan Adlan   | ![Medium](#FFFF00)| ![High](#FF0000) | CSP header not set.                                                                         |
+| JS Library                         | Wan Hamzah Iyad bin Wan Adlan   | ![Medium](#FFFF00)| ![Medium](#FFFF00)| Vulnerable JS library detected.                                                             |
+| HTTPS Implementation               | Wan Hamzah Iyad bin Wan Adlan   | ![Low](#00FF00)  | ![High](#FF0000) | No vulnerabilities found with HTTPS implementation.                                         |
+| Cookie Poisoning                   | Muhammad Arif Faisal bin Zahari | ![Low](#00FF00)  | ![Medium](#FFFF00)| Cookie with SameSite attribute None.                                                        |
+| Potential XSS                      | Muhammad Arif Faisal bin Zahari | ![Informational](#808080)| ![Low](#FFFF00)| User-controllable HTML element attribute.                                                   |
+| Information Disclosure             | Muhammad Arif Faisal bin Zahari | ![Low](#00FF00)  | ![Low](#FFFF00)  | Timestamp Disclosure - Unix.                                                                |
+
+### Color Codes
+- ![High](#FF0000) High
+- ![Medium](#FFFF00) Medium
+- ![Low](#00FF00) Low
+- ![Informational](#808080) Informational
+
      
 ## Table of Contents
 1. [Description](#desc)
