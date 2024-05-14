@@ -29,12 +29,12 @@
 | Vulnerability                     | Identified By                   | Risk Level       | Confidence Level | Details                                                                                     |
 |-----------------------------------|---------------------------------|------------------|------------------|---------------------------------------------------------------------------------------------|
 | Server OS and Server-Side Scripting | Muhammad Arif Faisal bin Zahari | 🟢 Low            | 🔴 High           | Server leaks version info via "Server" HTTP header.                                          |
-| Hash Disclosure                    | Muhammad bin Abas               | 🟢 Low            | 🟡 Medium         | No hash disclosure detected.                                                                |
-| CSRF                               | Muhammad bin Abas               | 🟡 Medium         | 🟡 Medium         | Absence of Anti-CSRF tokens.                                                                |
+| Hash Disclosure                    | Muhammad bin Abas               | N/A            | N/A         | No hash disclosure detected.                                                                |
+| CSRF                               | Muhammad bin Abas               | 🟡 Medium         | 🟢 Low            | Absence of Anti-CSRF tokens.                                                                |
 | Secured Cookies                    | Muhammad bin Abas               | 🟢 Low            | 🟡 Medium         | Cookie lacks HttpOnly flag.                                                                 |
 | CSP                                | Wan Hamzah Iyad bin Wan Adlan   | 🟡 Medium         | 🔴 High           | CSP header not set.                                                                         |
 | JS Library                         | Wan Hamzah Iyad bin Wan Adlan   | 🟡 Medium         | 🟡 Medium         | Vulnerable JS library detected.                                                             |
-| HTTPS Implementation               | Wan Hamzah Iyad bin Wan Adlan   | 🟢 Low            | 🔴 High           | No vulnerabilities found with HTTPS implementation.                                         |
+| HTTPS Implementation               | Wan Hamzah Iyad bin Wan Adlan   | N/A            | N/A         | No vulnerabilities found with HTTPS implementation.                                         |
 | Cookie Poisoning                   | Muhammad Arif Faisal bin Zahari | 🟢 Low            | 🟡 Medium         | Cookie with SameSite attribute None.                                                        |
 | Potential XSS                      | Muhammad Arif Faisal bin Zahari | ⚪ Informational  | 🟡 Medium         | User-controllable HTML element attribute.                                                   |
 | Information Disclosure             | Muhammad Arif Faisal bin Zahari | 🟢 Low            | 🟡 Medium         | Timestamp Disclosure - Unix.                                                                |
